@@ -1,0 +1,44 @@
+\documentclass{article}
+
+% set up telugu
+\usepackage{fontspec}
+\newfontfamily\telugufont{Pothana2000}[Script = Telugu,RawFeature={mode=harf}]
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{telugu}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{todonotes}
+\usepackage[plain]{fancyref}
+\usepackage{trivially}
+\usepackage{luacode}
+
+\begin{luacode*}
+	math.randomseed(314159)
+\end{luacode*}
+
+\title{Problem 2.1.1}
+\author{\begin{telugu}హృదయ్ దీపక్ మల్లుభొట్ల\end{telugu}}
+
+% !TeX spellcheck = en_GB
+\begin{document}
+	\maketitle
+	Show that, in the frequency space, we have
+	\begin{equation}
+		G(x_b, x_a, \omega) = \sum_n \frac{\psi_n(x_b) \psi^\dagger(x_a)}{\omega - \epsilon_n}
+	\end{equation}
+	where $\psi_n$ are the energy eigenfunctions.
+	The propagator for a harmonic oscillator has the form
+	\begin{equation}
+		G(x_b, t, x_a, 0) = (-i) \left( \frac{m \omega_0}{2 \pi i \sin(t \omega_0)} \right)^{\flatfrac12} \exp(\frac{i m \omega_0}{2 \pi \sin(t\omega_0)}\left[(x_b^2 + x_a^2)\cos(t \omega_0) - 2 x_b x_a \right])
+	\end{equation}
+	Study and explain the pole structure of $G(0, 0, \omega)$ for the harmonic oscillator.
+	(Hint: Try to expand $G(0, t, 0, 0,)$ in the form $\sum C_n e^{-i t \epsilon_n}$.)
+	\newpage
+	\listoftodos
+
+\end{document}
