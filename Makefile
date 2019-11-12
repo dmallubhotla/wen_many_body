@@ -1,4 +1,4 @@
-LATEXMK = latexmk -pdflatex="luahblatex %O %S" -pdf -dvi- -ps-
+LATEXMK = latexmk -pdflatex="luahblatex %O %S" -pdf -dvi- -ps- -quiet -logfilewarninglist
 WS = wolframscript -f
 
 all: 2.1.1.pdf
