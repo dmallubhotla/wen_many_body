@@ -26,4 +26,4 @@ $(PDF_DIR):
 
 $(OUTPUTS): pdfs/%.pdf: tex/%.tex | $(PDF_DIR)
 	cd $(<D); $(LATEXMK) $(<F)
-	cp $(<D)/$(@F) $@
+	@cp $(<D)/$(@F) $@
