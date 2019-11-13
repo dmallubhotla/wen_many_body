@@ -1,0 +1,87 @@
+\documentclass{article}
+
+% set up telugu
+\usepackage{fontspec}
+\newfontfamily\telugufont{Potti Sreeramulu}[Script = Telugu,RawFeature={mode=harf}]
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{telugu}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{todonotes}
+\usepackage[plain]{fancyref}
+\usepackage{luacode}
+
+% custom deepak packages
+\usepackage{trivially}
+\usepackage{subtitling}
+
+% Extra math.random() just advances counter one to make things less repetitive.
+\begin{luacode*}
+	math.randomseed(3141592)
+	math.random()
+\end{luacode*}
+
+% I like my vectors bold, not arrowed
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\ham}{\hat{H}}
+\newcommand{\msr}{\mathcal{D}}
+
+\title{Problem 2.1.3}
+\subtitle{Coherent-state path integral: gory}
+\author{\begin{telugu}హృదయ్ దీపక్ మల్లుభొట్ల\end{telugu}}
+
+% !TeX spellcheck = en_GB
+\begin{document}
+	\maketitle
+	Consider a harmonic oscillator $H = \omega \hat{a}^\dagger \hat{a}$.
+	A coherent state $\ket{a}$ labeled by a complex number $a$ is an eigenstate of $\hat{a}$ : $\hat{a}\ket{a} = a \ket{a}$.
+	We may define a coherent-state propagator by
+	\begin{equation}
+		i G(a_b, t_b, a_a, t_a) = \bra{a_b} U(t_b, t_a) \ket{a_a}.
+	\end{equation}
+	Using the completeness of the coherent state
+	\begin{equation}
+		\int \frac{\dd[2]{a}}{\pi}\dyad{a}{a} = 1
+	\end{equation}
+	(where $\dd[2]{a} = \dd{\Re(a)} \dd{\Im(a)}$) and the inner product
+	\begin{equation}
+		\bra{a}\ket{a'} = e^{-\flatfrac{\abs{a}^2}{2}} e^{-\flatfrac{\abs{a'}^2}{2}} e^{a^\ast a'},
+	\end{equation}
+	show that the path integral representation of $G$ is
+	\begin{equation}
+		i G(a_b, t_b, a_a, t_a) = \int \pi^{-N + 1} \msr^2[a(t)] e^{i \int_{t_a}^{t_b} \dd{t} \left[i \frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) - \omega a^\dagger a \right]}, \label{eq:pathintegraltarget}
+	\end{equation}
+	where $\msr^2[a(t)] = \prod_{j=1}^{N-1} \dd[2]a_j$.
+	Show that the Lagrangian in the coherent-state path integral
+	\begin{equation}
+		L = i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) - \omega a^\dagger a
+	\end{equation}
+	is simply the Lagrangian in the phase-space path integral
+	\begin{equation}
+		L = p\dot{x} - H
+	\end{equation}
+	up to a total time derivative term.
+
+	\section{Solution} \label{sec:solution}
+
+	\subsection{Path integral representation} \label{subsec:pathintegralrep}
+	We can start by showing~\eqref{eq:pathintegraltarget}.
+
+	\begin{align}
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} U(t_b, t_a) \ket{a_a} \\
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i H (t_b - t_a)} \ket{a_a} \\
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i \omega \hat{a}^\dagger \hat{a} (t_b - t_a)} \ket{a_a} \\
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i \omega \hat{a}^\dagger \hat{a} (t_b - t_a)} \ket{a_a}
+	\end{align}
+
+
+
+	\newpage
+	\listoftodos
+
+\end{document}
