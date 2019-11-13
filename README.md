@@ -2,5 +2,5 @@
 
 Build by calling `make`, and it will dump every pdf into the pdfs directory.
 Requires two custom `.sty` files:
-* https://github.com/dmallubhotla/luatrivially 
+* https://github.com/dmallubhotla/luatrivially
 * https://github.com/dmallubhotla/subtitling
