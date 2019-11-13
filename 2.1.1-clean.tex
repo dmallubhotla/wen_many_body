@@ -1,0 +1,89 @@
+\documentclass{article}
+
+% set up telugu
+\usepackage{fontspec}
+\newfontfamily\telugufont{Potti Sreeramulu}[Script = Telugu,RawFeature={mode=harf}]
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{telugu}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage[plain]{fancyref}
+\usepackage{luacode}
+
+% custom deepak packages
+\usepackage{trivially}
+\usepackage{subtitling}
+
+\begin{luacode*}
+	math.randomseed(31415926)
+\end{luacode*}
+
+\title{Problem 2.1.1}
+\subtitle{On the pole structure of propagators}
+\author{\begin{telugu}హృదయ్ దీపక్ మల్లుభొట్ల\end{telugu}}
+
+% !TeX spellcheck = en_GB
+\begin{document}
+	\maketitle
+	Show that, in the frequency space, we have
+	\begin{equation}
+		G(x_b, x_a, \omega) = \sum_n \frac{\psi_n(x_b) \psi^\dagger(x_a)}{\omega - \epsilon_n} \label{eq:target1}
+	\end{equation}
+	where $\psi_n$ are the energy eigenfunctions.
+	The propagator for a harmonic oscillator has the form
+	\begin{equation}
+		G(x_b, t, x_a, 0) = (-i) \left( \frac{m \omega_0}{2 \pi i \sin(t \omega_0)} \right)^{\flatfrac12} \exp(\frac{i m \omega_0}{2 \pi \sin(t\omega_0)}\left[(x_b^2 + x_a^2)\cos(t \omega_0) - 2 x_b x_a \right]) \label{eq:harmonicoscprop}
+	\end{equation}
+	Study and explain the pole structure of $G(0, 0, \omega)$ for the harmonic oscillator.
+	(Hint: Try to expand $G(0, t, 0, 0,)$ in the form $\sum C_n e^{-i t \epsilon_n}$.)
+
+	\section{Solution} \label{sec:solution}
+	\subsection{Pole structure form of propagator} \label{subsec:sol1}
+	We want to begin by showing~\eqref{eq:target1}.
+	\triv the coordinate Green function is defined via
+	\begin{equation}
+		i G(x_b, t_b, x_a, t_a) = \bra{x_b} U(t_b, t_a) \ket{x_a}.
+	\end{equation}
+	\triv
+	\begin{equation}
+		\bra{n_b} U(t_b, t_a) \ket{n_a} = e^{-i \epsilon_{n_b} (t_b - t_a)} \delta_{n_a, n_b},
+	\end{equation}
+	where $\ket{n_i}$ is the $i-$th energy eigenstate.
+	\thrf
+	\begin{align}
+		G(x_b, t_b, x_a, t_a) &= -i \sum_{n} \psi_n(x_b) \psi_n^\dagger(x_a)  e^{-i \epsilon_{n} (t_b - t_a)}
+	\end{align}
+	In frequency space,
+	\begin{align}
+		G(x_b, x_a, \omega) = \int_0^\infty \dd{t} G(x_b, t_a + t, x_a, t_a) e^{i t \omega - \delta t},
+	\end{align}
+	where $\delta$ is some small positive constant we'll send to zero later.
+	\triv when we find this in frequency space
+	\begin{align}
+		G(x_b, x_a, \omega) &= \sum_{n} \frac{\psi_n(x_b) \psi_n^\dagger(x_a)}{\omega - \epsilon_n + i \delta}
+	\end{align}
+	\thrf after we send $\delta \rightarrow 0$, we have shown~\eqref{eq:target1}, as desired.
+
+	\subsection{Pole structure of harmonic oscillator propagator} \label{subsec:sol2}
+	We can start with~\eqref{eq:harmonicoscprop}, and set $x_b = x_a = 0$.
+	\triv this gives us
+	\begin{align}
+		i G(x_b = 0, t, x_a = 0, 0) &= \sqrt{\frac{m \omega_0}{\pi}} e^{-i\frac{\omega_0}{2} t}\left(1 - e^{- 2 i \omega_0 t}\right)^{-\flatfrac12}. \label{eq:donebesidesseries}
+	\end{align}
+	Note here the $e^{-i\frac{\omega_0}{2} t}$, which will add $\frac{\omega_0}{2}$ to the energy.
+	\triv some simple series expansion gives us
+	\begin{align}
+		(1 - e^{- 2 i \omega_0 t})^{-\flatfrac12} &= 1 + \sum_{n = 1}^\infty \frac{ \left(- i \omega_0 \right)^n }{n{!}} \frac{(2n - 1){!}}{2^{n - 1}(n - 1){!}}e^{- i 2 n \omega_0 t}
+	\end{align}
+	\thrf we get that $\epsilon_n = \frac{\omega_0}{2} + 2 n \omega_0$, (which we could have gotten from~\eqref{eq:donebesidesseries}).
+	We're missing some of the energy eigenvalues for the harmonic oscillator because we're only looking at $x_b = x_a = 0$, at which point the propagator ignores all of the odd wavefunctions.
+	Including those by choosing a different $x$ or even by averaging over all $x$ would be easy enough to find the pole structure, as the exponential that disappears in~\eqref{eq:harmonicoscprop} would just be some function of $e^{-i\omega_0 t}$.
+	However, finding the $C_n$ in the series would be much more difficult.
+	This problem is obviously trivial if we just use the known energy eigenvalues and eigenstates of the harmonic oscillator, as all of the odd-indexed Hermite polynomials are in fact odd functions, making those terms in the sum~\eqref{eq:target1} disappear.
+
+\end{document}
