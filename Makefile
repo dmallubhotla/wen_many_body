@@ -21,7 +21,7 @@ clean:
 	cd tex; latexmk -C
 	rm -f tex/*.tdo
 
-$(PDF_DIR): 
+$(PDF_DIR):
 	mkdir $(PDF_DIR)
 
 $(OUTPUTS): pdfs/%.pdf: tex/%.tex | $(PDF_DIR)
