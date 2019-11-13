@@ -10,11 +10,16 @@ OUTPUTS := $(patsubst tex/%.tex, pdfs/%.pdf,$(SOURCES))
 
 all: $(OUTPUTS)
 
-.PHONY: all tidy
+.PHONY: all tidy clean
 
 tidy:
 	cd tex; latexmk -c
-	rm tex/*.tdo
+	rm -f tex/*.tdo
+
+clean:
+	rm -f pdfs/*
+	cd tex; latexmk -C
+	rm -f tex/*.tdo
 
 $(OUTPUTS): pdfs/%.pdf: tex/%.tex
 	cd $(<D); $(LATEXMK) $(<F)
