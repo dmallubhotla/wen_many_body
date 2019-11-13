@@ -1,0 +1,69 @@
+\documentclass{article}
+
+% set up telugu
+\usepackage{fontspec}
+\newfontfamily\telugufont{Potti Sreeramulu}[Script = Telugu,RawFeature={mode=harf}]
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{telugu}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{todonotes}
+\usepackage[plain]{fancyref}
+\usepackage{luacode}
+
+% custom deepak packages
+\usepackage{trivially}
+\usepackage{subtitling}
+
+% Extra math.random() just advances counter one to make things less repetitive.
+\begin{luacode*}
+	math.randomseed(31415926)
+	math.random()
+\end{luacode*}
+
+% I like my vectors bold, not arrowed
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\ham}{\hat{H}}
+
+\title{Problem 2.1.2}
+\subtitle{Free particle propagator: gory version}
+\author{\begin{telugu}హృదయ్ దీపక్ మల్లుభొట్ల\end{telugu}}
+
+% !TeX spellcheck = en_GB
+\begin{document}
+	\maketitle
+	Find the propagator $G_E(k_b, k_a, \omega)$ for a free particle in three dimensions in the wave vector and frequency space.
+
+	\section{Solution} \label{sec:solution}
+
+	Our Hamiltonian is
+	\begin{equation}
+		\ham = \frac{\vec{k}^2}{2m}
+	\end{equation}
+	\triv our energy eigenstates are just momentum eigenstates, so we can expand
+	\begin{align}
+		G_E(\vec{k}_b, \vec{k}_a, t) &= -i \bra{\vec{k}_b} \hat{U}(t, 0) \ket{\vec{k}_a} \\
+		&= -i \bra{\vec{k}_b} e^{-i \ham t} \ket{\vec{k}_a} \\
+		&= -i e^{-i \frac{\vec{k}_a^2}{2m} t} \bra{\vec{k}_b}\ket{\vec{k}_a} \\
+		&= -i e^{-i \frac{\vec{k}_a^2}{2m} t} \delta(\vec{k}_b - \vec{k}_a)
+	\end{align}
+	Now we need only transform to frequency space:
+	\begin{align}
+		G_E(\vec{k}_b, \vec{k}_a, \omega) &= \int_0^\infty \dd{t} G_E(\vec{k}_b, \vec{k}_a, t) e^{i t \omega - \delta t} \\
+		&= \int_0^\infty -i e^{-i \frac{\vec{k}_a^2}{2m} t} \delta(\vec{k}_b - \vec{k}_a)e^{i t \omega - \delta t} \\
+		&= -i \delta(\vec{k}_b - \vec{k}_a) \int_0^\infty e^{i (\omega - \frac{\vec{k}_a^2}{2m}) t} e^{- \delta t} \\
+		&= \delta(\vec{k}_b - \vec{k}_a) \frac{i}{i (\omega - \frac{\vec{k}_a^2}{2m}) - \delta}\\
+		G_E(\vec{k}_b, \vec{k}_a, \omega) &=  \frac{\delta(\vec{k}_b - \vec{k}_a)}{\omega - \frac{\vec{k}_a^2}{2m} + i 0},
+	\end{align}
+	where in the last step we've done justice to the universe by sending $\delta \rightarrow 0$.
+
+
+	\newpage
+	\listoftodos
+
+\end{document}
