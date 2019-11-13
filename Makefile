@@ -1,12 +1,21 @@
 LATEXMK = latexmk -pdflatex="luahblatex %O %S" -pdf -dvi- -ps- -quiet -logfilewarninglist
 WS = wolframscript -f
 
-all: 2.1.1.pdf 2.1.1-clean.pdf
+PDF_DIR = pdfs/
+TEX_DIR = tex/
 
-.PHONY: all clean
+SOURCES := $(wildcard tex/*.tex)
+OUTPUTS := $(patsubst tex/%.tex, pdfs/%.pdf,$(SOURCES))
 
-clean:
-	latexmk -C
 
-%.pdf: %.tex
-	$(LATEXMK) $<
+all: $(OUTPUTS)
+
+.PHONY: all tidy
+
+tidy:
+	cd tex; latexmk -c
+	rm tex/*.tdo
+
+$(OUTPUTS): pdfs/%.pdf: tex/%.tex
+	cd $(<D); $(LATEXMK) $(<F)
+	mv $(<D)/$(@F) $@
