@@ -1,0 +1,49 @@
+\documentclass{article}
+
+% set up telugu
+\usepackage{fontspec}
+\newfontfamily\telugufont{Potti Sreeramulu}[Script = Telugu,RawFeature={mode=harf}]
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguage{telugu}
+
+%other packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage[plain]{fancyref}
+\usepackage{luacode}
+\usepackage{titling}
+
+% custom deepak packages
+\usepackage{luatrivially}
+\usepackage{subtitling}
+
+% Extra math.random() just advances counter one to make things less repetitive.
+\begin{luacode*}
+	math.randomseed(3141592)
+	math.random()
+\end{luacode*}
+
+% I like my vectors bold, not arrowed
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\ham}{\hat{H}}
+\newcommand{\msr}{\mathcal{D}}
+
+\title{Problem 2.1.7}
+\subtitle{Imaginary free particle}
+\author{\begin{telugu}హృదయ్ దీపక్ మల్లుభొట్ల\end{telugu}}
+% want empty date
+\predate{}
+\date{}
+\postdate{}
+
+% !TeX spellcheck = en_GB
+\begin{document}
+	\maketitle
+	Use the imaginary-time path integral to calculate.
+	\section{Solution} \label{sec:solution}
+
+
+\end{document}
