@@ -55,7 +55,7 @@
 	\end{equation}
 	(where $\dd[2]{a} = \dd{\Re(a)} \dd{\Im(a)}$) and the inner product
 	\begin{equation}
-		\bra{a}\ket{a'} = e^{-\flatfrac{\abs{a}^2}{2}} e^{-\flatfrac{\abs{a'}^2}{2}} e^{a^\ast a'},
+		\bra{a}\ket{a'} = e^{-\flatfrac{\abs{a}^2}{2}} e^{-\flatfrac{\abs{a'}^2}{2}} e^{a^\ast a'}, \label{eq:innerproduct}
 	\end{equation}
 	show that the path integral representation of $G$ is
 	\begin{equation}
@@ -76,14 +76,64 @@
 
 	\subsection{Path integral representation} \label{subsec:pathintegralrep}
 	We can start by showing~\eqref{eq:pathintegraltarget}.
-
+	In general
 	\begin{align}
-		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} U(t_b, t_a) \ket{a_a} \\
-		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i H (t_b - t_a)} \ket{a_a} \\
-		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i \omega \hat{a}^\dagger \hat{a} (t_b - t_a)} \ket{a_a} \\
-		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} e^{-i \omega \hat{a}^\dagger \hat{a} (t_b - t_a)} \ket{a_a}
+		i G(a_2, t_2, a_1, t_1) &= \bra{a_2} U(t_2, t_1) \ket{a_1} \\
+		i G(a_2, t_2, a_1, t_1) &= \bra{a_2} e^{-i H (t_2 - t_1)} \ket{a_1} \\
+		i G(a_2, t_2, a_1, t_1) &= \bra{a_2} e^{-i \omega \hat{a}^\dagger \hat{a} (t_2 - t_1)} \ket{a_1}.
+	\end{align}
+	\triv for a given time slice (and with $x$ representing $a$ and $t$)
+	\begin{align}
+		i G(x_i, x_{i-1}) &= \bra{a_i} e^{-i \omega \hat{a}^\dagger \hat{a} (t_i - t_{i-1})} \ket{a_{i-1}} \\
+		&= \bra{a_i} \ket{a_{i-1}}  e^{-i \omega a_i^\ast a_{i-1} \Delta t}
+	\end{align}
+	Inserting~\eqref{eq:innerproduct},
+	\begin{align}
+		i G(x_i, x_{i-1}) &= e^{-\flatfrac{\abs{a_i}^2}{2}} e^{-\flatfrac{\abs{a_{i-1}}^2}{2}} e^{a_i^\ast a_{i-1}} e^{-i \omega a_i^\ast a_{i-1} \Delta t} \\
+		&= e^{-\frac{1}{2} \left( \abs{a_i}^2 + \abs{a_{i-1}}^2 - 2 a_i^\ast a_{i-1}\right)} e^{-i \omega a_i^\ast a_{i-1} \Delta t} \\
+		&= e^{i \left(\frac{i}{2 \Delta t} \left( \abs{a_i}^2 + \abs{a_{i-1}}^2 - 2 a_i^\ast a_{i-1}\right)\right) \Delta t}  e^{-i \omega a_i^\ast a_{i-1} \Delta t} \label{eq:fullexponential}
+	\end{align}
+	Simplifying the argument of the first exponential,
+	\begin{align}
+		& \frac{i}{2 \Delta t} \left( \abs{a_i}^2 + \abs{a_{i-1}}^2 - 2 a_i^\ast a_{i-1}\right)\\
+		&= \frac{i}{2 \Delta t} \left( a_i^\ast a_i + a_{i-1}^\ast a_{i-1} - 2 a_i^\ast a_{i-1}\right)\\
+		&= \frac{i}{2 \Delta t} \left( a_i^\ast a_i - a_i^\ast a_{i-1} - a_i^\ast a_{i-1}+ a_{i-1}^\ast a_{i-1}\right)\\
+		&= \frac{i}{2 \Delta t} \left( a_i^\ast \left(a_i -  a_{i-1}\right) - \left(a_i^\ast - a_{i-1}^\ast \right)a_{i-1}\right)\\
+		&= \frac{i}{2} \left( a^\ast \frac{\Delta a}{\Delta t} - \frac{\Delta a^\ast}{\Delta t} a \right) \\
+		&= \frac{i}{2} \left( a^\ast \dot{a} -  \dot{a}^\ast  a \right)
+	\end{align}
+	where in the penultimate expression we've dropped the subscripts to anticipate the $\Delta t \rightarrow 0$ limit.
+	Plugging this back into~\eqref{eq:fullexponential}, while simultaneously taking the same limit in the second exponential gives us
+	\begin{align}
+		i G(x_i, x_{i-1}) &= e^{i \left( \frac{i}{2} \left( a^\ast \dot{a} -  \dot{a}^\ast  a \right) \right) \Delta t}  e^{-i \omega a^\ast a \Delta t} \\
+		&= e^{i \left( \frac{i}{2} \left( a^\ast \dot{a} -  \dot{a}^\ast  a \right) - \omega a^\ast a \right) \Delta t} \label{eq:oneslice}
 	\end{align}
 
+	Now that we know what's up with a single time slice, let's relate that to our original case by taking time and violently slashing it to ribbons.
+	\triv for $N = 2$ slices,
+	\begin{align}
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} U(t_b, t_a) \ket{a_a} \\
+		i G(a_b, t_b, a_a, t_a) &= \bra{a_b} U(t_b, t_1) U(t_1, t_a) \ket{a_a}
+	\end{align}
+	\triv we can insert the identity here:
+	\begin{align}
+		i G(a_b, t_b, a_a, t_a) &= \int \frac{\dd[2]{a_1}}{\pi} \bra{a_b} U(t_b, t_1) \ket{a_1} \bra{a_1} U(t_1, t_a) \ket{a_a} \\
+		i G(a_b, t_b, a_a, t_a) &= \int \frac{\dd[2]{a_1}}{\pi} i G(a_b, t_b, a_1, t_1)  i G(a_1, t_1, a_a, t_a)
+	\end{align}
+	As we divide this into $N$ time slices, we'll end up with $N - 1$ integrals to perform, and thus, as our number of time slices get large enough that~\eqref{eq:oneslice} is valid,
+	\begin{align}
+		i G(a_b, t_b, a_a, t_a) &= \int \prod_{j = 1}^{N - 1} \left( \frac{\dd[2]{a_j}}{\pi}\right)  \prod_{i=1}^{N} i G(a_i, t_i, a_{i-1}, t_{i-1}) \\
+		i G(a_b, t_b, a_a, t_a) &= \frac{1}{\pi^{N - 1}} \int \msr^2[a(t)] \prod_{i=1}^{N} i G(a_i, t_i, a_{i-1}, t_{i-1}) \\
+		i G(a_b, t_b, a_a, t_a) &= \frac{1}{\pi^{N - 1}} \int \msr^2[a(t)] e^{i \sum_t \left( \frac{i}{2} \left( a^\ast \dot{a} -  \dot{a}^\ast  a \right) - \omega a^\ast a \right) \Delta t} \\
+		i G(a_b, t_b, a_a, t_a) &= \frac{1}{\pi^{N - 1}} \int \msr^2[a(t)] e^{i \int_{t_a}^{t_b} \dd{t} \frac{i}{2} \left( a^\ast \dot{a} -  \dot{a}^\ast  a \right) - \omega a^\ast a}
+	\end{align}
+	\thrf we have shown~\eqref{eq:pathintegraltarget}.
+	\subsection{Lagrangian is phase-space} \label{subsec:lagrangianphasespace}
+	Now, we can show that the Lagrangian
+	\begin{equation}
+		L = i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) - \omega a^\dagger a
+	\end{equation}
+	is equivalent to the phase space Lagrangian, up to isomophic dynamic structure.
 
 
 	\newpage
