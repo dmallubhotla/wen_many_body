@@ -134,7 +134,31 @@
 		L = i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) - \omega a^\dagger a
 	\end{equation}
 	is equivalent to the phase space Lagrangian, up to isomophic dynamic structure.
-
+	We essentially need to show that
+	\begin{equation}
+		i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) = p \dot{x}, \label{eq:lagrangianconnection}
+	\end{equation}
+	up to a total time derivative.
+	We know that
+	\begin{align}
+		\hat{a} = \sqrt{\frac{m \omega}{2}} \left(\hat{x} + \frac{i}{m \omega} \hat{p} \right) \\
+		\hat{a}^\dagger = \sqrt{\frac{m \omega}{2}} \left(\hat{x} - \frac{i}{m \omega} \hat{p} \right)
+	\end{align}
+	Writing $k = \frac{i}{m \omega} p$ and inserting these into~\eqref{eq:lagrangianconnection} gives us
+	\begin{align}
+		i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) &= \frac{m \omega}{2} \left( \left( x - k \right)\left(\dot{x} + \dot{k} \right) - \left(x + k \right) \left(\dot{x} - \dot{k} \right)\right) \\
+		&= i  \frac{m \omega}{2} \left( \dot{k} x - \dot{x} k \right) \\
+		&= i \frac12 \frac{m \omega}{2} \left( \dot{k} x + \dot{x} k - 2 \dot{x} k \right) \\
+		&= i \frac12 \frac{m \omega}{2} \left( \dv{t}(xk) - 2 \dot{x} k \right)
+	\end{align}
+	We can drop the first term here, as a total time derivative in a Lagrangian.
+	\begin{align}
+		i\frac12 \left(a^\dagger \dot{a} - a \dot{a}^\dagger \right) &= i \frac12 \frac{m \omega}{2} \left( \dv{t}(xk) - 2 \dot{x} k \right) \\
+		&= i m \omega \left( - \dot{x} k \right) \\
+		&= i m \omega \left( - \dot{x} \frac{i}{m \omega} p \right) \\
+		&= p \dot{x}
+	\end{align}
+	So we done.
 
 	\newpage
 	\listoftodos
